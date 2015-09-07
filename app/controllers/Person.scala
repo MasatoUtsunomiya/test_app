@@ -39,8 +39,8 @@ class PersonController extends Controller {
     }
   }
 
-  def getFutureObject(p : Person): Future[Person] = {
+  def getFutureObject(p : Person): Future[Person] = Future {
     // 何もせずすぐ返す
-    Future.successful(p)
+    p
   }
 }
