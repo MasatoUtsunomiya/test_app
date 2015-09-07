@@ -14,7 +14,7 @@ class PersonSpec extends Specification {
           |		"first" : "Masato",
           |		"last" : "Utsunomiya"
           |	},
-          |	"age": 33
+          |	"age": 18
           |}
         """.stripMargin)
       val response = route(FakeRequest("POST", "/api/v1/person").withJsonBody(post_data)).get
@@ -31,7 +31,7 @@ class PersonSpec extends Specification {
           |		"first" : 123,
           |		"last" : "Utsunomiya"
           |	},
-          |	"age": 33
+          |	"age": 18
           |}
         """.stripMargin)
       val response = route(FakeRequest("POST", "/api/v1/person").withJsonBody(post_data)).get
@@ -57,7 +57,7 @@ class PersonSpec extends Specification {
           |   "first" : "Masato",
           |   "last" : "Utsunomiya"
           |	},
-          |	"age": 33,
+          |	"age": 18,
           | "blood_type": "O",
           | "favorite_number": [1,2,3]
           |}
