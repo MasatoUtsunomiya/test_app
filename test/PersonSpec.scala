@@ -23,7 +23,7 @@ class PersonSpec extends Specification {
       contentAsJson(response) must equalTo(post_data)
     }
 
-    "json parameter is invalid" in new WithApplication {
+    "json parameter(name.first) is invalid" in new WithApplication {
       val post_data = Json.parse(
         """
           |{
@@ -47,6 +47,25 @@ class PersonSpec extends Specification {
           | ]
           |}
         """.stripMargin))
+    }
+
+    "append option type parameter" in new WithApplication {
+      val post_data = Json.parse(
+        """
+          |{
+          |	"name" : {
+          |   "first" : "Masato",
+          |   "last" : "Utsunomiya"
+          |	},
+          |	"age": 33,
+          | "blood_type": "O",
+          | "favorite_number": [1,2,3]
+          |}
+        """.stripMargin)
+      val response = route(FakeRequest("POST", "/api/v1/person").withJsonBody(post_data)).get
+
+      status(response) must equalTo(OK)
+      contentAsJson(response) must equalTo(post_data)
     }
   }
 }
