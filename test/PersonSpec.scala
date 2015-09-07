@@ -25,6 +25,6 @@ class PersonSpec extends Specification {
     }
   }
 
-  //parse失敗時のテストコード欲しいよね2
+  //parse失敗時のテストコード欲しいよね(あとで追加する)
 
 }
