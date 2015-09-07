@@ -17,14 +17,36 @@ class PersonSpec extends Specification {
           |	"age": 33
           |}
         """.stripMargin)
-      val request = FakeRequest("POST", "/api/v1/person").withJsonBody(post_data)
-      val response = route(request).get
+      val response = route(FakeRequest("POST", "/api/v1/person").withJsonBody(post_data)).get
 
       status(response) must equalTo(OK)
       contentAsJson(response) must equalTo(post_data)
     }
+
+    "json parameter is invalid" in new WithApplication {
+      val post_data = Json.parse(
+        """
+          |{
+          |	"name" : {
+          |		"first" : 123,
+          |		"last" : "Utsunomiya"
+          |	},
+          |	"age": 33
+          |}
+        """.stripMargin)
+      val response = route(FakeRequest("POST", "/api/v1/person").withJsonBody(post_data)).get
+
+      status(response) must equalTo(BAD_REQUEST)
+      contentAsJson(response) must equalTo(Json.parse(
+        """
+          |{
+          | "obj.name.first":[
+          |   {"msg":["error.expected.jsstring"],
+          |    "args":[]
+          |    }
+          | ]
+          |}
+        """.stripMargin))
+    }
   }
-
-  //parse失敗時のテストコード欲しいよね(あとで追加する)
-
 }
